@@ -58,6 +58,85 @@ export default function WomensDayCard() {
           </motion.p>
           <div className="mt-6 flex justify-center gap-4">
             <button
+              onClick={() => { setConfetti(true); setTimeout(() => setConfetti(false), 1800); }}
+              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-400 transition transform hover:scale-105 shadow-md"
+            >
+              <PartyPopper className="inline h-5 w-5 mr-2" /> Bắn hoa giấy
+            </button>
+            <button
+              onClick={() => setDark(!dark)}
+              className="px-6 py-3 border border-pink-400 rounded-xl flex items-center gap-2 hover:bg-pink-100 dark:hover:bg-pink-800 transition transform hover:scale-105 text-pink-800 dark:text-pink-100 shadow-sm"
+            >
+              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {dark ? "Chế độ sáng" : "Chế độ tối"}
+            </button>
+          </div>
+        </motion.div>
+
+        <AnimatePresence>
+          {confetti && (
+            <motion.div
+              key="confetti"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0"
+            >
+              <FloatingDecor active={confetti} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </div>
+  );
+}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden"
+        style={{
+          backgroundImage: pinkBackground,
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          fontFamily: "'Quicksand', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
+          color: dark ? "#fde2e2" : "#4a044e",
+        }}
+      >
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="text-center p-10 rounded-3xl shadow-2xl backdrop-blur-lg max-w-2xl"
+          style={{
+            background: dark ? "rgba(60,40,60,0.7)" : "rgba(255,255,255,0.85)",
+          }}
+        >
+          <div className="flex justify-center mb-3 animate-pulse">
+            <Heart className="h-8 w-8 text-pink-500" />
+          </div>
+          <h1
+            className="text-5xl font-bold mb-4"
+            style={{ fontFamily: "'Playfair Display', serif", color: dark ? "#ffe4e6" : "#701a75" }}
+          >
+            Thiệp Chúc Mừng 20/10 💖
+          </h1>
+          <motion.p
+            className="text-lg leading-8 max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 1 }}
+            style={{ color: dark ? "#ffe4e6" : "#4a044e" }}
+          >
+            Gửi đến <strong>Nguyễn Ngọc Uyên Châu</strong> những lời chúc tốt đẹp
+            nhất nhân ngày Phụ Nữ Việt Nam 20/10. Chúc bạn luôn xinh đẹp, mạnh mẽ,
+            thành công và hạnh phúc trong mọi điều mình làm. Mong mỗi ngày đều là
+            một ngày rực rỡ như hoa hồng hồng 🌸
+          </motion.p>
+          <div className="mt-6 flex justify-center gap-4">
+            <button
               onClick={() => setConfetti(true)}
               className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-400 transition transform hover:scale-105 shadow-md"
             >
