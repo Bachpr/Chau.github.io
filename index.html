@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thiệp Chúc Mừng 20/10</title>
+  <title>Thiệp Chúc Mừng 20/10 - Uyên Châu Cute</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg1: #fff0f5; /* lavenderblush */
-      --bg2: #ffdbe6; /* light pink */
+      --bg1: #fff0f5;
+      --bg2: #ffdbe6;
       --bg3: #fff0f5;
       --text: #57104f;
       --panel: rgba(255,255,255,0.85);
       --panel-border: #fbcfe8;
-      --accent: #ec4899; /* pink-500 */
-      --accent-strong: #db2777; /* pink-600 */
+      --accent: #ec4899;
+      --accent-strong: #db2777;
       --body-glow: 0 0 8px rgba(236,72,153,0.35);
       --title-grad: linear-gradient(90deg,#9d174d,#ec4899,#7c3aed,#9d174d);
       --title-shadow: 0 0 8px rgba(236,72,153,.25);
@@ -65,8 +65,9 @@
     .btn:hover{ transform: translateY(-1px) scale(1.03); filter: brightness(1.05) }
     .btn-outline{ background: transparent; color: var(--text); border-color: color-mix(in oklab, var(--accent) 45%, transparent); box-shadow: 0 4px 14px rgba(0,0,0,.06) }
     .btn-outline:hover{ background: color-mix(in oklab, var(--accent) 18%, transparent) }
+    .btn-ghost{ background: transparent; color: var(--accent-strong); border: 1px dashed color-mix(in oklab, var(--accent) 50%, transparent) }
+    .btn-ghost:hover{ background: color-mix(in oklab, var(--accent) 15%, transparent) }
 
-    /* Confetti */
     .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
     .piece{ position:absolute; top:-40px; will-change: transform, opacity; animation: fall 2.2s ease-out forwards }
     @keyframes fall{
@@ -74,6 +75,7 @@
       10%{ opacity:1 }
       100%{ transform: translateY(100vh) rotate(360deg); opacity:0 }
     }
+    .audio-hint{ font-size:12px; opacity:.8; margin-top:6px }
   </style>
 </head>
 <body>
@@ -82,15 +84,28 @@
       <div style="font-size:28px; margin-bottom:8px">💗</div>
       <h1 class="title">Thiệp Chúc Mừng 20/10</h1>
       <p class="lead">
-        Gửi đến <strong>Nguyễn Ngọc Uyên Châu</strong> những lời chúc tốt đẹp nhất nhân ngày Phụ Nữ Việt Nam 20/10.
+        Gửi đến <strong>Uyên Châu Cute</strong> những lời chúc tốt đẹp nhất nhân ngày Phụ Nữ Việt Nam 20/10.
         Chúc bạn luôn xinh đẹp, mạnh mẽ, thành công và hạnh phúc. Mong mỗi ngày đều rực rỡ như hoa hồng hồng.
       </p>
+      <p style="margin-top:24px; font-size:18px; color:var(--accent); font-weight:600; animation: pulseHeart 2.5s ease-in-out infinite;">— Tặng riêng cho <strong>Uyên Châu Cute 💞</strong></p>
+      <style>@keyframes pulseHeart{0%,100%{opacity:.9;transform:scale(1);}50%{opacity:1;transform:scale(1.07);}}</style>
       <div class="row">
         <button class="btn" id="btn-confetti">🎉 Bắn Hoa Giấy</button>
         <button class="btn btn-outline" id="btn-toggle">🌙 Chế Độ Tối</button>
+        <button class="btn btn-ghost" id="btn-music">🔊 Bật Nhạc</button>
       </div>
+      <div class="row" style="margin-top:10px; align-items:center;">
+        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.6" style="width:160px; accent-color:var(--accent);"/>
+        <button class="btn btn-outline" id="btn-pause">⏸ Tạm Dừng</button>
+      </div>
+      <div class="audio-hint" id="audio-hint">Chọn “Bật Nhạc” để phát lo-fi dịu nhẹ ♪</div>
     </div>
     <div class="confetti" id="confetti-root"></div>
+
+    <!-- Hidden YouTube player (audio only) -->
+    <div id="yt-holder" style="width:0;height:0;overflow:hidden;position:absolute;left:-9999px;top:-9999px;">
+      <div id="yt-player"></div>
+    </div>
   </div>
 
   <script>
@@ -99,13 +114,45 @@
       const confettiRoot = document.getElementById('confetti-root');
       const btnConfetti = document.getElementById('btn-confetti');
       const btnToggle = document.getElementById('btn-toggle');
+      const btnMusic = document.getElementById('btn-music');
+      const hint = document.getElementById('audio-hint');
+      const vol = document.getElementById('volume-slider');
+      const btnPause = document.getElementById('btn-pause');
 
       function isDark(){ return app.getAttribute('data-theme') === 'dark'; }
       function setDark(val){ app.setAttribute('data-theme', val ? 'dark' : 'light'); btnToggle.textContent = val ? '☀️ Chế Độ Sáng' : '🌙 Chế Độ Tối'; }
 
       setDark(false);
-
       btnToggle.addEventListener('click',()=> setDark(!isDark()));
+
+      let ytPlayer = null; let playing = false; let ytApiLoaded = false;
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+
+      window.onYouTubeIframeAPIReady = function(){
+        ytApiLoaded = true;
+        ytPlayer = new YT.Player('yt-player', {
+          videoId: 'IpFX2vq8HKw',
+          playerVars: { autoplay: 0, controls: 0, rel: 0, modestbranding: 1, playsinline: 1 },
+          events: {
+            onReady: function(){ try{ ytPlayer.setVolume(parseFloat(vol.value||'0.6')*100); }catch(_){} },
+            onStateChange: function(e){
+              if(e.data === YT.PlayerState.PLAYING){ playing = true; btnMusic.textContent='🔇 Tắt Nhạc'; btnPause.textContent='⏸ Tạm Dừng'; hint.style.display='none'; }
+              if(e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED){ playing = false; btnMusic.textContent='🔊 Bật Nhạc'; btnPause.textContent='▶ Phát Lại'; }
+            }
+          }
+        });
+      };
+
+      function toggleMusic(){ if(!ytPlayer) return; const st = ytPlayer.getPlayerState(); if(st !== 1){ ytPlayer.playVideo(); } else { ytPlayer.pauseVideo(); } }
+      btnMusic.addEventListener('click', toggleMusic);
+
+      function togglePause(){ if(!ytPlayer) return; const st = ytPlayer.getPlayerState(); if(st !== 1){ ytPlayer.playVideo(); } else { ytPlayer.pauseVideo(); } }
+      btnPause.addEventListener('click', togglePause);
+
+      vol.addEventListener('input', function(){ if(ytPlayer) ytPlayer.setVolume(parseFloat(this.value||'0.6')*100); });
+      btnPause.textContent = '▶ Phát Lại';
 
       function spawnConfetti(){
         const emojis = ['💖','🌸','🎀','✨','💐','🌷','🌹'];
@@ -122,12 +169,11 @@
       }
       btnConfetti.addEventListener('click', spawnConfetti);
 
-      // Runtime tests (simple console asserts)
       try{
         console.assert(typeof spawnConfetti === 'function', 'spawnConfetti missing');
         const wasDark = isDark(); setDark(!wasDark); console.assert(isDark() !== wasDark, 'toggle failed'); setDark(wasDark);
-        const style = getComputedStyle(document.querySelector('.title'));
-        console.assert(style.backgroundImage.includes('linear-gradient'), 'title gradient missing');
+        console.assert(typeof window.onYouTubeIframeAPIReady === 'function', 'YouTube API not wired');
+        console.assert(!!vol && !!btnPause, 'controls missing');
       }catch(e){ console.warn('Runtime tests failed', e); }
     })();
   </script>
