@@ -1,185 +1,50 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Flower2, PartyPopper, Sun, Moon, Heart } from "lucide-react";
-
-export default function WomensDayCard() {
-  const [dark, setDark] = useState(false);
-  const [confetti, setConfetti] = useState(false);
-
-  const pinkBackground = dark
-    ? "linear-gradient(180deg, rgba(255,182,193,0.25) 0%, rgba(255,192,203,0.35) 50%, rgba(255,182,193,0.25) 100%)"
-    : "linear-gradient(180deg, rgba(255,228,235,1) 0%, rgba(255,192,203,0.95) 50%, rgba(255,240,245,1) 100%)";
-
-  return (
-    <div className={dark ? "dark" : ""}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden"
-        style={{
-          backgroundImage: pinkBackground,
-          backgroundAttachment: "fixed",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          fontFamily: "'Quicksand', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
-          color: dark ? "#fde2e2" : "#4a044e",
-        }}
-      >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-center p-10 rounded-3xl shadow-2xl backdrop-blur-lg max-w-2xl"
-          style={{
-            background: dark ? "rgba(60,40,60,0.7)" : "rgba(255,255,255,0.85)",
-          }}
-        >
-          <div className="flex justify-center mb-3 animate-pulse">
-            <Heart className="h-8 w-8 text-pink-500" />
-          </div>
-          <h1
-            className="text-5xl font-bold mb-4"
-            style={{ fontFamily: "'Playfair Display', serif", color: dark ? "#ffe4e6" : "#701a75" }}
-          >
-            Thiệp Chúc Mừng 20/10 💖
-          </h1>
-          <motion.p
-            className="text-lg leading-8 max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            style={{ color: dark ? "#ffe4e6" : "#4a044e" }}
-          >
-            Gửi đến <strong>Nguyễn Ngọc Uyên Châu</strong> những lời chúc tốt đẹp
-            nhất nhân ngày Phụ Nữ Việt Nam 20/10. Chúc bạn luôn xinh đẹp, mạnh mẽ,
-            thành công và hạnh phúc trong mọi điều mình làm. Mong mỗi ngày đều là
-            một ngày rực rỡ như hoa hồng hồng 🌸
-          </motion.p>
-          <div className="mt-6 flex justify-center gap-4">
-            <button
-              onClick={() => { setConfetti(true); setTimeout(() => setConfetti(false), 1800); }}
-              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-400 transition transform hover:scale-105 shadow-md"
-            >
-              <PartyPopper className="inline h-5 w-5 mr-2" /> Bắn hoa giấy
-            </button>
-            <button
-              onClick={() => setDark(!dark)}
-              className="px-6 py-3 border border-pink-400 rounded-xl flex items-center gap-2 hover:bg-pink-100 dark:hover:bg-pink-800 transition transform hover:scale-105 text-pink-800 dark:text-pink-100 shadow-sm"
-            >
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              {dark ? "Chế độ sáng" : "Chế độ tối"}
-            </button>
-          </div>
-        </motion.div>
-
-        <AnimatePresence>
-          {confetti && (
-            <motion.div
-              key="confetti"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0"
-            >
-              <FloatingDecor active={confetti} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </div>
-  );
-}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden"
-        style={{
-          backgroundImage: pinkBackground,
-          backgroundAttachment: "fixed",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          fontFamily: "'Quicksand', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
-          color: dark ? "#fde2e2" : "#4a044e",
-        }}
-      >
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-center p-10 rounded-3xl shadow-2xl backdrop-blur-lg max-w-2xl"
-          style={{
-            background: dark ? "rgba(60,40,60,0.7)" : "rgba(255,255,255,0.85)",
-          }}
-        >
-          <div className="flex justify-center mb-3 animate-pulse">
-            <Heart className="h-8 w-8 text-pink-500" />
-          </div>
-          <h1
-            className="text-5xl font-bold mb-4"
-            style={{ fontFamily: "'Playfair Display', serif", color: dark ? "#ffe4e6" : "#701a75" }}
-          >
-            Thiệp Chúc Mừng 20/10 💖
-          </h1>
-          <motion.p
-            className="text-lg leading-8 max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 1 }}
-            style={{ color: dark ? "#ffe4e6" : "#4a044e" }}
-          >
-            Gửi đến <strong>Nguyễn Ngọc Uyên Châu</strong> những lời chúc tốt đẹp
-            nhất nhân ngày Phụ Nữ Việt Nam 20/10. Chúc bạn luôn xinh đẹp, mạnh mẽ,
-            thành công và hạnh phúc trong mọi điều mình làm. Mong mỗi ngày đều là
-            một ngày rực rỡ như hoa hồng hồng 🌸
-          </motion.p>
-          <div className="mt-6 flex justify-center gap-4">
-            <button
-              onClick={() => setConfetti(true)}
-              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-400 transition transform hover:scale-105 shadow-md"
-            >
-              <PartyPopper className="inline h-5 w-5 mr-2" /> Bắn hoa giấy
-            </button>
-            <button
-              onClick={() => setDark(!dark)}
-              className="px-6 py-3 border border-pink-400 rounded-xl flex items-center gap-2 hover:bg-pink-100 dark:hover:bg-pink-800 transition transform hover:scale-105 text-pink-800 dark:text-pink-100 shadow-sm"
-            >
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              {dark ? "Chế độ sáng" : "Chế độ tối"}
-            </button>
-          </div>
-        </motion.div>
-
-        {confetti && <FloatingDecor active={confetti} />}
-      </motion.div>
-    </div>
-  );
-}
-
-function FloatingDecor({ active }: { active: boolean }) {
-  const items = new Array(18).fill(0).map((_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    delay: Math.random() * 0.6,
-    scale: 0.8 + Math.random() * 0.7,
-    emoji: ["💖", "🌸", "🎀", "✨", "💐", "🌷", "🌹"][i % 7],
-  }));
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      {items.map((it) => (
-        <motion.div
-          key={it.id}
-          initial={{ y: -20, opacity: 0 }}
-          animate={active ? { y: [0, 300], opacity: [0, 1, 0] } : {}}
-          transition={{ duration: 2, ease: "easeOut", delay: it.delay }}
-          style={{ left: `${it.x}%`, fontSize: `${it.scale}rem` }}
-          className="absolute top-0"
-        >
-          {it.emoji}
-        </motion.div>
-      ))}
-    </div>
-  );
-}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chúc mừng 20/10 – Gửi Uyên Châu</title>
+  <style>
+    :root{
+      --bg1:#ffeef5;
+      --bg2:#ffd6e8;
+      --primary:#f48fb1;
+      --accent:#f8bbd0;
+      --ink:#4a2c3a;
+      --card:#ffffffb3;
+      --glass:rgba(255,255,255,.65);
+      --shadow:0 10px 25px rgba(255,182,193,.3);
+    }
+    body{margin:0;font-family:'Segoe UI',sans-serif;color:var(--ink);
+      background:linear-gradient(180deg,var(--bg1),var(--bg2));overflow-x:hidden;}
+    header{position:sticky;top:0;background:var(--glass);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:12px 20px;box-shadow:var(--shadow)}
+    header h1{font-size:clamp(18px,3vw,26px);color:var(--primary)}
+    .badge{background:var(--primary);color:white;padding:4px 10px;border-radius:20px}
+    .btn{background:var(--primary);border:none;border-radius:12px;padding:10px 16px;color:white;cursor:pointer;font-weight:600;box-shadow:var(--shadow);}
+    .btn:hover{filter:brightness(1.1)}
+    .card{background:var(--card);padding:18px;border-radius:20px;box-shadow:var(--shadow);margin:16px 0}
+    .title{color:var(--primary);font-size:clamp(24px,5vw,40px);font-weight:800;}
+    .petal{position:absolute;width:14px;height:8px;background:var(--accent);border-radius:12px 12px 12px 2px;opacity:.7;animation:floatPetal 10s linear infinite}
+    @keyframes floatPetal{0%{transform:translateY(-10vh)}100%{transform:translateY(110vh)rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💖 Thiệp chúc mừng 20/10 – <span class="badge">Uyên Châu</span></h1>
+    <button class="btn" onclick="alert('Chúc Uyên Châu luôn hạnh phúc và tỏa sáng! 💕')">💐 Nhận lời chúc</button>
+  </header>
+  <main style="max-width:900px;margin:auto;padding:20px;position:relative">
+    <div id="petalLayer"></div>
+    <section class="card">
+      <h2 class="title">Chúc mừng Ngày Phụ nữ Việt Nam 20/10 💓</h2>
+      <p>Uyên Châu thân mến,</p>
+      <p>Chúc bạn luôn xinh đẹp, tự tin và hạnh phúc. Mong rằng mọi ước mơ đều trở thành hiện thực và nụ cười của bạn sẽ luôn nở rộ như hoa hồng buổi sớm. 🌸</p>
+      <p style="text-align:right;font-weight:600">— Người gửi bí mật 💌</p>
+    </section>
+  </main>
+  <script>
+    const petalLayer=document.getElementById('petalLayer');
+    function addPetal(){const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'%';p.style.background=`hsl(${340+Math.random()*20},80%,90%)`;p.style.animationDuration=8+Math.random()*6+'s';petalLayer.appendChild(p);setTimeout(()=>p.remove(),15000);}setInterval(addPetal,200);
+  </script>
+</body>
+</html>
