@@ -1,155 +1,135 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { PartyPopper, Sun, Moon, Heart } from "lucide-react";
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thiệp Chúc Mừng 20/10</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #fff0f5; /* lavenderblush */
+      --bg2: #ffdbe6; /* light pink */
+      --bg3: #fff0f5;
+      --text: #57104f;
+      --panel: rgba(255,255,255,0.85);
+      --panel-border: #fbcfe8;
+      --accent: #ec4899; /* pink-500 */
+      --accent-strong: #db2777; /* pink-600 */
+      --body-glow: 0 0 8px rgba(236,72,153,0.35);
+      --title-grad: linear-gradient(90deg,#9d174d,#ec4899,#7c3aed,#9d174d);
+      --title-shadow: 0 0 8px rgba(236,72,153,.25);
+    }
+    [data-theme="dark"]{
+      --bg1: #1a161c;
+      --bg2: #251b27;
+      --bg3: #1a161c;
+      --text: #fde2e2;
+      --panel: rgba(60,40,60,0.72);
+      --panel-border: #f5a8c8;
+      --accent: #f472b6;
+      --accent-strong: #be185d;
+      --body-glow: 0 0 10px rgba(255,192,203,.55);
+      --title-grad: linear-gradient(90deg,#fecdd3,#f472b6,#a78bfa,#fecdd3);
+      --title-shadow: 0 0 10px rgba(255,192,203,.30);
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Quicksand, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      background-attachment: fixed;
+    }
+    .wrap{min-height:100vh; display:grid; place-items:center; padding:24px}
+    .card{
+      max-width: 760px; width: min(92vw, 760px);
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 24px; padding: 36px; backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.10);
+      text-align:center;
+    }
+    .title{ 
+      font-family: 'Playfair Display', ui-serif, Georgia, serif;
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800; margin: 0 0 10px;
+      background-image: var(--title-grad);
+      background-size: 200% 200%;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(var(--title-shadow));
+      animation: hueSlide 6s linear infinite;
+    }
+    @keyframes hueSlide{ 0%{background-position-x:0%} 50%{background-position-x:100%} 100%{background-position-x:0%} }
+    .lead{ font-size:18px; line-height:1.75; text-shadow: var(--body-glow); margin: 14px auto 0; max-width: 52ch }
+    .row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 22px }
+    .btn{ appearance:none; border:1px solid color-mix(in oklab, var(--accent) 50%, transparent); background: var(--accent); color:#fff; padding:12px 18px; border-radius: 12px; cursor:pointer; font-weight: 700; box-shadow: 0 6px 18px rgba(236,72,153,.30); transition: transform .15s ease, filter .15s ease, background .2s ease }
+    .btn:hover{ transform: translateY(-1px) scale(1.03); filter: brightness(1.05) }
+    .btn-outline{ background: transparent; color: var(--text); border-color: color-mix(in oklab, var(--accent) 45%, transparent); box-shadow: 0 4px 14px rgba(0,0,0,.06) }
+    .btn-outline:hover{ background: color-mix(in oklab, var(--accent) 18%, transparent) }
 
-function pinkBG(dark: boolean) {
-  return dark
-    ? "linear-gradient(180deg, rgba(255,192,203,0.2) 0%, rgba(255,182,193,0.25) 50%, rgba(255,192,203,0.2) 100%)"
-    : "linear-gradient(180deg, rgba(255,240,245,1) 0%, rgba(255,228,235,0.95) 50%, rgba(255,240,245,1) 100%)";
-}
-
-function titleGradient(dark: boolean) {
-  return dark
-    ? "linear-gradient(90deg, #fecdd3, #f472b6, #a78bfa, #fecdd3)"
-    : "linear-gradient(90deg, #9d174d, #ec4899, #7c3aed, #9d174d)";
-}
-
-function bodyGlow(dark: boolean) {
-  return dark ? "0 0 10px rgba(255,192,203,0.55)" : "0 0 8px rgba(236,72,153,0.35)";
-}
-
-export default function WomensDayCard() {
-  const [dark, setDark] = useState(false);
-  const [confetti, setConfetti] = useState(false);
-
-  return (
-    <div className={dark ? "dark" : ""}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="min-h-screen w-full flex flex-col items-center justify-center relative overflow-hidden"
-        style={{
-          backgroundImage: pinkBG(dark),
-          backgroundAttachment: "fixed",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          fontFamily: "Quicksand, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
-          color: dark ? "#fde2e2" : "#57104f",
-        }}
-      >
-        <motion.div
-          initial={{ scale: 0.97, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="text-center p-10 rounded-3xl shadow-2xl backdrop-blur-lg max-w-2xl border border-pink-200"
-          style={{ background: dark ? "rgba(60,40,60,0.7)" : "rgba(255,255,255,0.85)" }}
-        >
-          <div className="flex justify-center mb-3">
-            <Heart className="h-8 w-8" style={{ color: dark ? "#f472b6" : "#db2777", filter: "drop-shadow(0 2px 6px rgba(244,114,182,0.45))" }} />
-          </div>
-
-          <motion.h1
-            className="text-5xl font-extrabold mb-4 leading-tight"
-            style={{
-              fontFamily: "Playfair Display, ui-serif, Georgia, Times, serif",
-              backgroundImage: titleGradient(dark),
-              backgroundSize: "200% 200%",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              filter: dark ? "drop-shadow(0 0 10px rgba(255,192,203,0.3))" : "drop-shadow(0 0 8px rgba(236,72,153,0.25))",
-            }}
-            animate={{ backgroundPositionX: ["0%", "100%", "0%"] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          >
-            Thiep Chuc Mung 20/10 💖
-          </motion.h1>
-
-          <motion.p
-            className="text-lg leading-8 max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.7 }}
-            style={{ color: dark ? "#ffe4e6" : "#831843", textShadow: bodyGlow(dark) }}
-          >
-            Gui den <strong>Nguyen Ngoc Uyen Chau</strong> nhung loi chuc tot dep nhat nhan ngay Phu Nu Viet Nam 20/10. Chuc ban luon xinh dep, manh me, thanh cong va hanh phuc. Mong moi ngay deu la mot ngay ruc ro nhu hoa hong hong.
-          </motion.p>
-
-          <div className="mt-6 flex justify-center gap-4">
-            <button
-              onClick={() => {
-                setConfetti(true);
-                setTimeout(() => setConfetti(false), 1800);
-              }}
-              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-400 transition transform hover:scale-105 shadow-md"
-            >
-              <PartyPopper className="inline h-5 w-5 mr-2" /> Ban hoa giay
-            </button>
-            <button
-              onClick={() => setDark(!dark)}
-              className="px-6 py-3 border border-pink-400 rounded-xl flex items-center gap-2 hover:bg-pink-100 dark:hover:bg-pink-900 transition transform hover:scale-105 text-pink-800 dark:text-pink-100 shadow-sm"
-            >
-              {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              {dark ? "Che do sang" : "Che do toi"}
-            </button>
-          </div>
-        </motion.div>
-
-        <AnimatePresence>
-          {confetti && (
-            <motion.div
-              key="confetti"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0"
-            >
-              <FloatingDecor active={confetti} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+    /* Confetti */
+    .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
+    .piece{ position:absolute; top:-40px; will-change: transform, opacity; animation: fall 2.2s ease-out forwards }
+    @keyframes fall{
+      0%{ transform: translateY(-40px) rotate(0deg); opacity:0 }
+      10%{ opacity:1 }
+      100%{ transform: translateY(100vh) rotate(360deg); opacity:0 }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app" data-theme="light">
+    <div class="card">
+      <div style="font-size:28px; margin-bottom:8px">💗</div>
+      <h1 class="title">Thiệp Chúc Mừng 20/10</h1>
+      <p class="lead">
+        Gửi đến <strong>Nguyễn Ngọc Uyên Châu</strong> những lời chúc tốt đẹp nhất nhân ngày Phụ Nữ Việt Nam 20/10.
+        Chúc bạn luôn xinh đẹp, mạnh mẽ, thành công và hạnh phúc. Mong mỗi ngày đều rực rỡ như hoa hồng hồng.
+      </p>
+      <div class="row">
+        <button class="btn" id="btn-confetti">🎉 Bắn Hoa Giấy</button>
+        <button class="btn btn-outline" id="btn-toggle">🌙 Chế Độ Tối</button>
+      </div>
     </div>
-  );
-}
+    <div class="confetti" id="confetti-root"></div>
+  </div>
 
-function FloatingDecor({ active }: { active: boolean }) {
-  const items = new Array(18).fill(0).map((_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    delay: Math.random() * 0.6,
-    scale: 0.8 + Math.random() * 0.7,
-    emoji: ["💖", "🌸", "🎀", "✨", "💐", "🌷", "🌹"][i % 7],
-  }));
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      {items.map((it) => (
-        <motion.div
-          key={it.id}
-          initial={{ y: -20, opacity: 0 }}
-          animate={active ? { y: [0, 300], opacity: [0, 1, 0] } : {}}
-          transition={{ duration: 2, ease: "easeOut", delay: it.delay }}
-          style={{ left: `${it.x}%`, fontSize: `${it.scale}rem` }}
-          className="absolute top-0"
-        >
-          {it.emoji}
-        </motion.div>
-      ))}
-    </div>
-  );
-}
+  <script>
+    (function(){
+      const app = document.getElementById('app');
+      const confettiRoot = document.getElementById('confetti-root');
+      const btnConfetti = document.getElementById('btn-confetti');
+      const btnToggle = document.getElementById('btn-toggle');
 
-(function runTests() {
-  try {
-    console.assert(typeof WomensDayCard === "function", "Component missing");
-    const d = pinkBG(true); const l = pinkBG(false);
-    console.assert(d.includes("linear-gradient") && l.includes("linear-gradient"), "Gradients invalid");
-    const tgD = titleGradient(true); const tgL = titleGradient(false);
-    console.assert(tgD.includes("linear-gradient") && tgL.includes("linear-gradient"), "Title gradient invalid");
-    console.assert(typeof bodyGlow(true) === "string" && typeof bodyGlow(false) === "string", "Glow invalid");
-  } catch (e) {
-    console.warn("Runtime tests failed", e);
-  }
-})();
+      function isDark(){ return app.getAttribute('data-theme') === 'dark'; }
+      function setDark(val){ app.setAttribute('data-theme', val ? 'dark' : 'light'); btnToggle.textContent = val ? '☀️ Chế Độ Sáng' : '🌙 Chế Độ Tối'; }
+
+      setDark(false);
+
+      btnToggle.addEventListener('click',()=> setDark(!isDark()));
+
+      function spawnConfetti(){
+        const emojis = ['💖','🌸','🎀','✨','💐','🌷','🌹'];
+        for(let i=0;i<22;i++){
+          const el = document.createElement('span');
+          el.className='piece';
+          el.textContent = emojis[i % emojis.length];
+          el.style.left = Math.random()*100 + 'vw';
+          el.style.fontSize = (12 + Math.random()*18) + 'px';
+          el.style.animationDelay = (Math.random()*0.4) + 's';
+          confettiRoot.appendChild(el);
+          setTimeout(()=> el.remove(), 2400);
+        }
+      }
+      btnConfetti.addEventListener('click', spawnConfetti);
+
+      // Runtime tests (simple console asserts)
+      try{
+        console.assert(typeof spawnConfetti === 'function', 'spawnConfetti missing');
+        const wasDark = isDark(); setDark(!wasDark); console.assert(isDark() !== wasDark, 'toggle failed'); setDark(wasDark);
+        const style = getComputedStyle(document.querySelector('.title'));
+        console.assert(style.backgroundImage.includes('linear-gradient'), 'title gradient missing');
+      }catch(e){ console.warn('Runtime tests failed', e); }
+    })();
+  </script>
+</body>
+</html>
