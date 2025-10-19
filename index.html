@@ -4,14 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thiệp Chúc Mừng 20/10 - Uyên Châu Cute</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Quicksand:wght@400;600;700&family=Allura&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg1: #fff0f5;
       --bg2: #ffdbe6;
       --bg3: #fff0f5;
       --text: #57104f;
-      --panel: rgba(255,255,255,0.85);
+      --panel: rgba(255,255,255,0.88);
       --panel-border: #fbcfe8;
       --accent: #ec4899;
       --accent-strong: #db2777;
@@ -38,19 +40,31 @@
       color:var(--text);
       background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
       background-attachment: fixed;
+      display:flex; align-items:center; justify-content:center; min-height:100vh; overflow:hidden;
+      animation: fadeIn 1.2s ease;
     }
-    .wrap{min-height:100vh; display:grid; place-items:center; padding:24px}
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+    .wrap{min-height:100vh; display:grid; place-items:center; padding:24px; position:relative}
+
     .card{
-      max-width: 760px; width: min(92vw, 760px);
+      max-width: 900px; width: min(96vw, 900px);
       background: var(--panel);
       border: 1px solid var(--panel-border);
-      border-radius: 24px; padding: 36px; backdrop-filter: blur(10px);
-      box-shadow: 0 14px 40px rgba(0,0,0,.10);
+      border-radius: 24px; padding: 28px; backdrop-filter: blur(10px);
+      box-shadow: 0 0 35px rgba(255,182,193,0.7), 0 0 80px rgba(255,192,203,0.5);
       text-align:center;
+      animation: gentleGlow 5s ease-in-out infinite;
+      position:relative; overflow:hidden;
     }
+    @keyframes gentleGlow {
+      0%,100% { box-shadow: 0 0 40px rgba(255,182,193,0.6), 0 0 90px rgba(255,192,203,0.4); transform:scale(1); }
+      50% { box-shadow: 0 0 70px rgba(255,105,180,0.9), 0 0 130px rgba(255,182,193,0.8); transform:scale(1.01); }
+    }
+
     .title{ 
       font-family: 'Playfair Display', ui-serif, Georgia, serif;
-      font-size: clamp(32px, 6vw, 52px);
+      font-size: clamp(30px, 5.6vw, 50px);
       font-weight: 800; margin: 0 0 10px;
       background-image: var(--title-grad);
       background-size: 200% 200%;
@@ -59,58 +73,84 @@
       animation: hueSlide 6s linear infinite;
     }
     @keyframes hueSlide{ 0%{background-position-x:0%} 50%{background-position-x:100%} 100%{background-position-x:0%} }
-    .lead{ font-size:18px; line-height:1.75; text-shadow: var(--body-glow); margin: 14px auto 0; max-width: 52ch }
-    .row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 22px }
-    .btn{ appearance:none; border:1px solid color-mix(in oklab, var(--accent) 50%, transparent); background: var(--accent); color:#fff; padding:12px 18px; border-radius: 12px; cursor:pointer; font-weight: 700; box-shadow: 0 6px 18px rgba(236,72,153,.30); transition: transform .15s ease, filter .15s ease, background .2s ease }
+    .lead{ font-size:18px; line-height:1.75; text-shadow: var(--body-glow); margin: 10px auto 0; max-width: 64ch }
+    .message { margin-top:14px; font-size:16px; line-height:1.8; color:#6b213a; text-align:justify; max-width:68ch; margin-left:auto; margin-right:auto; }
+    .row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top: 16px }
+    .btn{ appearance:none; border:1px solid rgba(236,72,153,.5); background: var(--accent); color:#fff; padding:10px 14px; border-radius: 12px; cursor:pointer; font-weight: 700; box-shadow: 0 6px 18px rgba(236,72,153,.30); transition: transform .15s ease, filter .15s ease, background .2s ease }
     .btn:hover{ transform: translateY(-1px) scale(1.03); filter: brightness(1.05) }
-    .btn-outline{ background: transparent; color: var(--text); border-color: color-mix(in oklab, var(--accent) 45%, transparent); box-shadow: 0 4px 14px rgba(0,0,0,.06) }
-    .btn-outline:hover{ background: color-mix(in oklab, var(--accent) 18%, transparent) }
-    .btn-ghost{ background: transparent; color: var(--accent-strong); border: 1px dashed color-mix(in oklab, var(--accent) 50%, transparent) }
-    .btn-ghost:hover{ background: color-mix(in oklab, var(--accent) 15%, transparent) }
+    .btn-outline{ background: transparent; color: var(--text); border:1px solid rgba(236,72,153,.45); box-shadow: 0 4px 14px rgba(0,0,0,.06) }
+    .btn-outline:hover{ background: rgba(236,72,153,.18) }
+    .btn-ghost{ background: transparent; color: var(--accent-strong); border: 1px dashed rgba(236,72,153,.5) }
+    .btn-ghost:hover{ background: rgba(236,72,153,.15) }
+
+    .signature{font-family:'Allura',cursive;font-size:28px;color:var(--accent-strong);margin-top:20px;display:inline-block;white-space:nowrap;overflow:hidden;border-right:2px solid var(--accent-strong);opacity:0;animation:typing 3s steps(30,end) forwards,blink 1s step-end infinite alternate,glowPulse 3s ease-in-out infinite}
+    @keyframes typing{0%{width:0;opacity:1}100%{width:100%;opacity:1}}
+    @keyframes blink{50%{border-color:transparent}}
+    @keyframes glowPulse{0%,100%{text-shadow:0 0 8px rgba(255,105,180,0.6)}50%{text-shadow:0 0 18px rgba(255,105,180,0.9)}}
 
     .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
     .piece{ position:absolute; top:-40px; will-change: transform, opacity; animation: fall 2.2s ease-out forwards }
-    @keyframes fall{
-      0%{ transform: translateY(-40px) rotate(0deg); opacity:0 }
-      10%{ opacity:1 }
-      100%{ transform: translateY(100vh) rotate(360deg); opacity:0 }
-    }
+    @keyframes fall{ 0%{ transform: translateY(-40px) rotate(0deg); opacity:0 } 10%{ opacity:1 } 100%{ transform: translateY(100vh) rotate(360deg); opacity:0 } }
     .audio-hint{ font-size:12px; opacity:.8; margin-top:6px }
+    @keyframes pulseHeart{0%,100%{opacity:.9;transform:scale(1);}50%{opacity:1;transform:scale(1.07);}}
+
+    canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; }
+
+    .hr{height:1px;background:linear-gradient(90deg,transparent,rgba(236,72,153,.35),transparent);margin:14px 0}
+    .compact{font-size:12px;opacity:.8}
   </style>
 </head>
 <body>
+  <canvas id="fireworks"></canvas>
   <div class="wrap" id="app" data-theme="light">
-    <div class="card">
+    <div class="card" id="cardRoot">
       <div style="font-size:28px; margin-bottom:8px">💗</div>
       <h1 class="title">Thiệp Chúc Mừng 20/10</h1>
       <p class="lead">
-        Gửi đến <strong>Uyên Châu Cute</strong> những lời chúc tốt đẹp nhất nhân ngày Phụ Nữ Việt Nam 20/10.
+        Gửi đến <strong id="receiver-name">Uyên Châu Cute</strong> những lời chúc tốt đẹp nhất nhân ngày Phụ Nữ Việt Nam 20/10.
         Chúc bạn luôn xinh đẹp, mạnh mẽ, thành công và hạnh phúc. Mong mỗi ngày đều rực rỡ như hoa hồng hồng.
       </p>
-      <p style="margin-top:24px; font-size:18px; color:var(--accent); font-weight:600; animation: pulseHeart 2.5s ease-in-out infinite;">— Tặng riêng cho <strong>Uyên Châu Cute 💞</strong></p>
-      <style>@keyframes pulseHeart{0%,100%{opacity:.9;transform:scale(1);}50%{opacity:1;transform:scale(1.07);}}</style>
+      <p style="margin-top:14px; font-size:18px; color:var(--accent); font-weight:600; animation: pulseHeart 2.5s ease-in-out infinite;">- Tặng riêng cho <strong id="receiver-name-2">Uyên Châu Cute 💞</strong></p>
+
+      <p class="message" id="message-content">
+        Cảm ơn bạn vì luôn là người đáng yêu, tốt bụng và tỏa sáng như ánh mặt trời mỗi ngày. Mong rằng hôm nay và mọi ngày sau đều tràn ngập tiếng cười, niềm vui và hạnh phúc. Dù đi đâu, làm gì, hãy luôn giữ nụ cười rạng rỡ và trái tim đầy yêu thương nhé. Bạn xứng đáng nhận được mọi điều tốt đẹp nhất!
+      </p>
+
       <div class="row">
         <button class="btn" id="btn-confetti">🎉 Bắn Hoa Giấy</button>
+        <button class="btn" id="startFireworks">🎆 Pháo Hoa</button>
+      </div>
+
+      <div class="row">
         <button class="btn btn-outline" id="btn-toggle">🌙 Chế Độ Tối</button>
         <button class="btn btn-ghost" id="btn-music">🔊 Bật Nhạc</button>
+        <button class="btn" id="btn-download">📸 Tải PNG</button>
+        <button class="btn" id="btn-share">📤 Chia sẻ</button>
+        <button class="btn btn-outline" id="btn-perf">⚡ Hiệu năng cao</button>
       </div>
-      <div class="row" style="margin-top:10px; align-items:center;">
+
+      <div class="row" style="align-items:center;gap:12px">
+        <span class="compact">Âm lượng</span>
         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.6" style="width:160px; accent-color:var(--accent);"/>
         <button class="btn btn-outline" id="btn-pause">⏸ Tạm Dừng</button>
       </div>
-      <div class="audio-hint" id="audio-hint">Chọn “Bật Nhạc” để phát lo-fi dịu nhẹ ♪</div>
+      <div class="audio-hint compact" id="audio-hint">Chọn "Bật Nhạc" để phát lo-fi dịu nhẹ ♪</div>
+
+      <div class="signature">- Từ người gửi: HNB 💌</div>
     </div>
+
     <div class="confetti" id="confetti-root"></div>
 
-    <!-- Hidden YouTube player (audio only) -->
     <div id="yt-holder" style="width:0;height:0;overflow:hidden;position:absolute;left:-9999px;top:-9999px;">
       <div id="yt-player"></div>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
     (function(){
       const app = document.getElementById('app');
+      const cardRoot = document.getElementById('cardRoot');
       const confettiRoot = document.getElementById('confetti-root');
       const btnConfetti = document.getElementById('btn-confetti');
       const btnToggle = document.getElementById('btn-toggle');
@@ -118,6 +158,10 @@
       const hint = document.getElementById('audio-hint');
       const vol = document.getElementById('volume-slider');
       const btnPause = document.getElementById('btn-pause');
+      const btnDownload = document.getElementById('btn-download');
+      const btnShare = document.getElementById('btn-share');
+      const startFireworksBtn = document.getElementById('startFireworks');
+      const btnPerf = document.getElementById('btn-perf');
 
       function isDark(){ return app.getAttribute('data-theme') === 'dark'; }
       function setDark(val){ app.setAttribute('data-theme', val ? 'dark' : 'light'); btnToggle.textContent = val ? '☀️ Chế Độ Sáng' : '🌙 Chế Độ Tối'; }
@@ -125,21 +169,20 @@
       setDark(false);
       btnToggle.addEventListener('click',()=> setDark(!isDark()));
 
-      let ytPlayer = null; let playing = false; let ytApiLoaded = false;
+      let ytPlayer = null;
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       document.head.appendChild(tag);
 
       window.onYouTubeIframeAPIReady = function(){
-        ytApiLoaded = true;
         ytPlayer = new YT.Player('yt-player', {
           videoId: 'IpFX2vq8HKw',
           playerVars: { autoplay: 0, controls: 0, rel: 0, modestbranding: 1, playsinline: 1 },
           events: {
             onReady: function(){ try{ ytPlayer.setVolume(parseFloat(vol.value||'0.6')*100); }catch(_){} },
             onStateChange: function(e){
-              if(e.data === YT.PlayerState.PLAYING){ playing = true; btnMusic.textContent='🔇 Tắt Nhạc'; btnPause.textContent='⏸ Tạm Dừng'; hint.style.display='none'; }
-              if(e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED){ playing = false; btnMusic.textContent='🔊 Bật Nhạc'; btnPause.textContent='▶ Phát Lại'; }
+              if(e.data === YT.PlayerState.PLAYING){ btnMusic.textContent='🔇 Tắt Nhạc'; btnPause.textContent='⏸ Tạm Dừng'; hint.style.display='none'; }
+              if(e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED){ btnMusic.textContent='🔊 Bật Nhạc'; btnPause.textContent='▶ Phát Lại'; }
             }
           }
         });
@@ -169,12 +212,153 @@
       }
       btnConfetti.addEventListener('click', spawnConfetti);
 
-      try{
-        console.assert(typeof spawnConfetti === 'function', 'spawnConfetti missing');
-        const wasDark = isDark(); setDark(!wasDark); console.assert(isDark() !== wasDark, 'toggle failed'); setDark(wasDark);
-        console.assert(typeof window.onYouTubeIframeAPIReady === 'function', 'YouTube API not wired');
-        console.assert(!!vol && !!btnPause, 'controls missing');
-      }catch(e){ console.warn('Runtime tests failed', e); }
+      const canvas = document.getElementById('fireworks');
+      const ctx = canvas.getContext('2d');
+      function resizeCanvas(){
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(innerWidth * dpr);
+        canvas.height = Math.floor(innerHeight * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      let _rzTO;
+      window.addEventListener('resize', ()=>{ clearTimeout(_rzTO); _rzTO = setTimeout(resizeCanvas, 150); });
+      resizeCanvas();
+
+      class Firework{
+        constructor(x,y,color){
+          this.x=x;this.y=y;this.color=color;
+          this.particles=[];
+          for(let i=0;i<getParticleCount();i++){
+            const angle=Math.random()*2*Math.PI;
+            const speed=Math.random()*8+2;
+            const radius=Math.random()*3+1;
+            this.particles.push({x:this.x,y:this.y,dx:Math.cos(angle)*speed,dy:Math.sin(angle)*speed,alpha:1,r:radius});
+          }
+        }
+        update(){
+          this.particles.forEach(p=>{
+            p.x+=p.dx;
+            p.y+=p.dy;
+            p.dy+=0.05;
+            p.alpha-=0.012;
+          });
+          this.particles=this.particles.filter(p=>p.alpha>0);
+        }
+        draw(){
+          this.particles.forEach(p=>{
+            const gradient=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+            gradient.addColorStop(0,this.color);
+            gradient.addColorStop(1,'rgba(255,255,255,0)');
+            ctx.globalAlpha=p.alpha;
+            ctx.fillStyle=gradient;
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+            ctx.fill();
+          });
+          ctx.globalAlpha=1;
+        }
+      }
+
+      class ShootingStar{
+        constructor(){ this.reset(); }
+        reset(){
+          this.x=Math.random()*canvas.width;
+          this.y=Math.random()*canvas.height*0.3;
+          this.len=Math.random()*200+100;
+          this.speed=Math.random()*8+5;
+          this.alpha=1;
+          this.color=`hsl(${Math.random()*360},100%,80%)`;
+        }
+        update(){
+          this.x-=this.speed;
+          this.y+=this.speed/2;
+          this.alpha-=0.01;
+          if(this.alpha<=0) this.reset();
+        }
+        draw(){
+          const grad=ctx.createLinearGradient(this.x,this.y,this.x+this.len,this.y-this.len/2);
+          grad.addColorStop(0,'rgba(255,255,255,0)');
+          grad.addColorStop(1,this.color);
+          ctx.globalAlpha=this.alpha;
+          ctx.strokeStyle=grad;
+          ctx.lineWidth=2;
+          ctx.beginPath();
+          ctx.moveTo(this.x,this.y);
+          ctx.lineTo(this.x+this.len,this.y-this.len/2);
+          ctx.stroke();
+          ctx.globalAlpha=1;
+        }
+      }
+
+      function getParticleCount(){ return perfHigh ? 100 : 35; }
+      let fireworks=[];
+      let stars=[];
+      for(let i=0;i<5;i++) stars.push(new ShootingStar());
+
+      let targetFPS = 60; let targetFRAME = 1000 / targetFPS; let _lastTime = 0;
+      function setFPS(f){ targetFPS = f; targetFRAME = 1000 / targetFPS; }
+      function animate(ts){
+        if(!ts) ts = performance.now();
+        const delta = ts - _lastTime;
+        if (delta >= targetFRAME) {
+          _lastTime = ts - (delta % targetFRAME);
+          ctx.fillStyle='rgba(0,0,0,0.15)';
+          ctx.fillRect(0,0,canvas.width,canvas.height);
+          fireworks.forEach(f=>{f.update();f.draw();});
+          fireworks = fireworks.filter(f=>f.particles.length>0);
+          stars.forEach(s=>{s.update();s.draw();});
+        }
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+
+      let perfHigh = true; function applyPerfLabel(){ btnPerf.textContent = perfHigh ? '⚡ Hiệu năng cao' : '🪫 Tiết kiệm pin'; }
+      applyPerfLabel(); setFPS(60);
+      btnPerf.addEventListener('click', ()=>{ perfHigh = !perfHigh; setFPS(perfHigh ? 60 : 30); applyPerfLabel(); });
+
+      startFireworksBtn.addEventListener('click',()=>{
+        const bursts = perfHigh ? 6 : 3;
+        for(let i=0;i<bursts;i++){
+          const x=Math.random()*canvas.width*0.8+canvas.width*0.1;
+          const y=Math.random()*canvas.height*0.5+canvas.height*0.2;
+          const color=`hsl(${Math.random()*360},100%,70%)`;
+          fireworks.push(new Firework(x,y,color));
+        }
+        stars.forEach(s=>{s.color=`hsl(${Math.random()*360},100%,80%)`;});
+      });
+
+      async function captureCardAsBlob(){
+        const canvasShot = await html2canvas(cardRoot, {backgroundColor: null, scale: 2, useCORS:true});
+        return await new Promise(res=> canvasShot.toBlob(res, 'image/png'));
+      }
+
+      btnDownload.addEventListener('click', async ()=>{
+        try{
+          const blob = await captureCardAsBlob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = 'thiep-20-10.png';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(()=> URL.revokeObjectURL(url), 1500);
+        }catch(e){ alert('Không thể chụp ảnh thiệp.'); }
+      });
+
+      btnShare.addEventListener('click', async ()=>{
+        try{
+          const title = 'Thiệp 20/10';
+          const text = 'Mình gửi bạn chiếc thiệp nhỏ xinh';
+          if(navigator.canShare && navigator.canShare({ files: [new File([new Blob()], 'x.png', {type:'image/png'})] })){
+            const blob = await captureCardAsBlob();
+            const file = new File([blob], 'thiep-20-10.png', { type:'image/png' });
+            await navigator.share({ files:[file], title, text });
+          } else if(navigator.share){
+            await navigator.share({ title, text, url: location.href });
+          } else {
+            document.getElementById('btn-download').click();
+          }
+        }catch(e){ }
+      });
+
     })();
   </script>
 </body>
